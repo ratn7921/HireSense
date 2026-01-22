@@ -11,10 +11,27 @@ export function JobList() {
   const [jobs, setJobs] = useState<any[]>([]);
   const { filters, setFilters } = useFilters();
   const [selectedJob, setSelectedJob] = useState<any>(null);
+  const [pendingJob, setPendingJob] = useState<any>(null);
 
   useEffect(() => {
     getJobs().then(setJobs);
   }, []);
+
+  useEffect(() => {
+    const handleFocus = () => {
+      if (pendingJob) {
+        setSelectedJob(pendingJob);
+        setPendingJob(null);
+      }
+    };
+
+    window.addEventListener("focus", handleFocus);
+    return () => window.removeEventListener("focus", handleFocus);
+  }, [pendingJob]);
+
+  const handleApplyClick = (job: any) => {
+    setPendingJob(job);
+  };
 
   // Filter logic
   const filteredJobs = jobs.filter(job => {
@@ -49,7 +66,7 @@ export function JobList() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {best.map(j => (
-              <JobCard key={j.id} job={j} onApply={setSelectedJob} />
+              <JobCard key={j.id} job={j} onApply={handleApplyClick} />
             ))}
           </div>
         </section>
@@ -62,7 +79,7 @@ export function JobList() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {others.map(j => (
-            <JobCard key={j.id} job={j} onApply={setSelectedJob} />
+            <JobCard key={j.id} job={j} onApply={handleApplyClick} />
           ))}
         </div>
       </section>
