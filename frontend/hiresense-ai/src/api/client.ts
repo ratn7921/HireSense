@@ -1,6 +1,10 @@
 import type { Job } from "../types/job";
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3001";
+const BASE_URL = import.meta.env.VITE_API_BASE_URL ||
+  (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+    ? "http://localhost:3001"
+    : "https://hiresense-8lq2.onrender.com");
+
 
 export async function getJobs(): Promise<Job[]> {
   const res = await fetch(`${BASE_URL}/jobs`);
