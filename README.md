@@ -91,6 +91,15 @@ Our matching system uses a two-tier approach for speed and accuracy:
 
 ---
 
+## 🎥 Demo – End-to-End Walkthrough
+
+<p align="center">
+  <img src="./Assets/ScreenRecording2026-01-22133513-ezgif.com-video-to-gif-converter.gif" alt="HireSense AI Demo" width="900"/>
+</p>
+
+---
+
+
 ## 📄 License
 MIT
 
